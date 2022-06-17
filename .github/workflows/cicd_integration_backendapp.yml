@@ -10,8 +10,6 @@ on:
       - cicd_integration
   workflow_dispatch:
 
-env:
-  COVERAGE_TOTAL: 0
 
 jobs:
   build:
@@ -34,7 +32,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Test and coverage
-        run: pytest --cov==. --cov-fail-under= ${{ env.COVERAGE_TOTAL }}
+        run: pytest --cov==. --cov-fail-under=1
         
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
       
