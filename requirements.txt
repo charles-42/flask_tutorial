@@ -45,3 +45,5 @@ pytest
 pytest-cov
 Flask-Testing
 selenium
+flask-dance[sqla]
+blinker
