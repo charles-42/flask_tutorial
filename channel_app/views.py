@@ -23,6 +23,13 @@ blueprint = make_google_blueprint(
 
 app.register_blueprint(blueprint,url_prefix="/login")
 
+@app.route("/debug")
+def indebugdex():
+    client_id= os.environ['GOOGLE_CLIENT_ID']
+    client_secret = os.environ['GOOGLE_CLIENT_SECRET']
+    return f" <html> {client_id}, {client_secret} </html>"
+
+
 @app.route("/thehome")
 def index():
     google_data = None
