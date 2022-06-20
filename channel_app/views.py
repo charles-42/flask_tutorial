@@ -1,5 +1,5 @@
 from flask_dance.contrib.google import make_google_blueprint, google
-# from config import GOOGLE_CLIENT_ID, GOOGLE_CLINT_SECRET 
+# from config import GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET 
 import os
 from flask import Flask, render_template, request, redirect, url_for
 from werkzeug.utils import redirect
@@ -13,8 +13,8 @@ os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 os.environ['OAUTHLIB_RELAX_TOKEN_SCOPE'] = '1'
 
 blueprint = make_google_blueprint(
-    client_id="664926608124-3dd9atkiujmgdr1kg38ag1orr1f4kbuj.apps.googleusercontent.com",
-    client_secret = "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",
+    client_id= GOOGLE_CLIENT_ID,
+    client_secret = GOOGLE_CLIENT_SECRET,
     reprompt_consent= True,
     scope= ["profile","email"]
 )
