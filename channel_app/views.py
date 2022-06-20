@@ -1,5 +1,5 @@
 from flask_dance.contrib.google import make_google_blueprint, google
-# from azure-appconfiguration import AzureAppConfigurationClient, ConfigurationSetting
+from dotenv import load_dotenv
 
 import os
 from flask import Flask, render_template, request, redirect, url_for
@@ -10,12 +10,13 @@ from flask_login import login_user, login_required, current_user, logout_user
 from channel_app import db, app
 from .models import Channel, User
 
+load_dotenv(override=True)
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 os.environ['OAUTHLIB_RELAX_TOKEN_SCOPE'] = '1'
 
 blueprint = make_google_blueprint(
-    client_id= os.getenv('GOOGLE_CLIENT_ID'),
-    client_secret = os.getenv('GOOGLE_CLIENT_SECRET'),
+    client_id= os.environ.get('GOOGLE_CLIENT_ID'),
+    client_secret = os.environ.get('GOOGLE_CLIENT_SECRET'),
     reprompt_consent= True,
     scope= ["profile","email"]
 )

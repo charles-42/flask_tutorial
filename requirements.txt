@@ -47,3 +47,4 @@ Flask-Testing
 selenium
 flask-dance[sqla]
 blinker
+python-dotenv
