@@ -15,8 +15,8 @@ os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 os.environ['OAUTHLIB_RELAX_TOKEN_SCOPE'] = '1'
 
 blueprint = make_google_blueprint(
-    client_id= os.environ.get('GOOGLE_CLIENT_ID'),
-    client_secret = os.environ.get('GOOGLE_CLIENT_SECRET'),
+    client_id= os.environ['GOOGLE_CLIENT_ID'],
+    client_secret = os.environ['GOOGLE_CLIENT_SECRET'],
     reprompt_consent= True,
     scope= ["profile","email"]
 )
