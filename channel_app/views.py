@@ -1,3 +1,6 @@
+from flask_dance.contrib.google import make_google_blueprint, google
+# from config import GOOGLE_CLIENT_ID, GOOGLE_CLINT_SECRET 
+import os
 from flask import Flask, render_template, request, redirect, url_for
 from werkzeug.utils import redirect
 from .utils import row2dict
@@ -5,6 +8,33 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, login_required, current_user, logout_user
 from channel_app import db, app
 from .models import Channel, User
+
+os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+os.environ['OAUTHLIB_RELAX_TOKEN_SCOPE'] = '1'
+
+blueprint = make_google_blueprint(
+    client_id="664926608124-3dd9atkiujmgdr1kg38ag1orr1f4kbuj.apps.googleusercontent.com",
+    client_secret = "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",
+    reprompt_consent= True,
+    scope= ["profile","email"]
+)
+
+app.register_blueprint(blueprint,url_prefix="/login")
+
+@app.route("/thehome")
+def index():
+    google_data = None
+    user_info_endpoint = '/oauth2/v2/userinfo'
+    if google.authorized:
+        google_data = google.get(user_info_endpoint).json()
+
+    return render_template('index.j2',
+                           google_data=google_data,
+                           fetch_url=google.base_url + user_info_endpoint)
+
+@app.route('/login')
+def logauth():
+    return redirect(url_for('google.login'))
 
 @app.route("/")
 def home():
@@ -54,12 +84,12 @@ def signup_post():
     return redirect(url_for("login"))
 
 
-@app.route('/login')
+@app.route('/login2')
 def login():
     return render_template('login.html')
 
 
-@app.route('/login', methods=['POST'])
+@app.route('/login2', methods=['POST'])
 def login_post():
     # login code goes here
     email = request.form.get('email')

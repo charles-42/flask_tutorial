@@ -43,3 +43,5 @@ wcwidth==0.2.5
 Werkzeug==2.0.2
 pytest
 pytest-cov
+Flask-Testing
+selenium
